@@ -22,4 +22,6 @@ public interface UserTaskService {
     UserTask updateTask(String id, UserTask task);
 
     void deleteTask(String id);
+
+	boolean updateTaskStatus(String taskId, String newStatus);
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600) // Allow cross-origin requests from any origin for 1 hour
@@ -93,6 +94,25 @@ public class TaskController {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+    
+    @PutMapping("/update/{taskId}")
+    public ResponseEntity<?> updateTaskStatus(
+            @PathVariable String taskId,
+            @RequestBody Map<String, String> requestBody
+    ) {
+        String newStatus = requestBody.get("status");
+        if (newStatus == null) {
+            return ResponseEntity.badRequest().body("Status is required.");
+        }
+
+        // Update the task status in the database
+        boolean updated = taskService.updateTaskStatus(taskId, newStatus);
+        if (updated) {
+            return ResponseEntity.ok().body("Task status updated.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found.");
         }
     }
 

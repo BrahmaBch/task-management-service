@@ -3,7 +3,7 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/demo-mongo-db
+      uri: mongodb://localhost:27017/user-mongo-db
 
 jwtSecret: "4o2me8z/10ZHE916ecj+KmSt+EsV9H4930RqpX6qs7g="
 jwtExpirationMs: 86400000

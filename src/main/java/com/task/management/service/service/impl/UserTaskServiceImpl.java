@@ -104,4 +104,20 @@ public class UserTaskServiceImpl implements UserTaskService {
         // Add validation logic for updates if necessary
         log.info("Task update validation passed.");
     }
+
+	
+	// Method to update the status of a task
+	@Override
+    public boolean updateTaskStatus(String taskId, String newStatus) {
+        // Find the task by ID
+        UserTask task = taskRepository.findById(taskId).orElse(null);
+        if (task == null) {
+            return false; // Task not found
+        }
+
+        // Update the status
+        task.setStatus(newStatus);
+        taskRepository.save(task); // Save the updated task
+        return true; // Successfully updated
+    }
 }
